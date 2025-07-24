@@ -1,4 +1,6 @@
+```markdown
 # Projeto Backend JDBC - MySQL
+# CRUD Completo 
 
 Este projeto foi desenvolvido com o objetivo de **ensinar como conectar uma aplicação Java ao banco de dados MySQL usando JDBC**, além de mostrar duas formas de conexão: usando **arquivo `.properties`** e **variáveis de ambiente**.
 
@@ -6,20 +8,20 @@ Este projeto foi desenvolvido com o objetivo de **ensinar como conectar uma apli
 
 ## 🎯 Objetivos
 
-- Aprender a usar JDBC com Java
-- Conectar com MySQL de forma segura
-- Utilizar propriedades externas ou variáveis de ambiente para conexão
-- Gerenciar a conexão e seu encerramento corretamente
+- Aprender a usar JDBC com Java  
+- Conectar com MySQL de forma segura  
+- Utilizar propriedades externas ou variáveis de ambiente para conexão  
+- Gerenciar a conexão e seu encerramento corretamente  
 
 ---
 
 ## ⚙️ Requisitos
 
-- JDK 17+ instalado
-- Eclipse IDE
-- Conector JDBC (MySQL)
-- MySQL instalado
-- Variáveis de ambiente configuradas (opcional)
+- JDK 17+ instalado  
+- Eclipse IDE  
+- Conector JDBC (MySQL)  
+- MySQL instalado  
+- Variáveis de ambiente configuradas (opcional)  
 
 ---
 
@@ -43,7 +45,7 @@ JDBC-ConnectionDB/
 ├── properties/
 │   └── db.properties                 # Arquivo de configuração de conexão
 
-````
+```
 
 ---
 
@@ -53,8 +55,8 @@ JDBC-ConnectionDB/
 
 Você pode usar conectores diferentes conforme o banco de dados:
 
-- [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/)
-- [PostgreSQL JDBC Driver](https://jdbc.postgresql.org/download.html)
+- [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/)  
+- [PostgreSQL JDBC Driver](https://jdbc.postgresql.org/download.html)  
 
 Salve o `.jar` em `C:\Program Files\Java\lib` ou em outro local conveniente.
 
@@ -62,18 +64,18 @@ Salve o `.jar` em `C:\Program Files\Java\lib` ou em outro local conveniente.
 
 ### 2. Configure o Eclipse
 
-1. **Importe o projeto:**
-   - `File > Open Projects from File System`
+1. **Importe o projeto:**  
+   - `File > Open Projects from File System`  
 
-2. **Crie uma biblioteca:**
-   - `Window > Preferences > Java > Build Path > User Libraries`
-   - Clique em **"New..."**, dê um nome (ex: `MySQLConnector`)
-   - Selecione a biblioteca criada e clique em **"Add External JARs..."**, depois selecione o conector `.jar`
+2. **Crie uma biblioteca:**  
+   - `Window > Preferences > Java > Build Path > User Libraries`  
+   - Clique em **"New..."**, dê um nome (ex: `MySQLConnector`)  
+   - Selecione a biblioteca criada e clique em **"Add External JARs..."**, depois selecione o conector `.jar`  
 
-3. **Adicione a biblioteca ao projeto:**
-   - Botão direito no projeto > `Build Path > Configure Build Path`
-   - Aba **Libraries > Add Library > User Library**
-   - Escolha a biblioteca personalizada criada
+3. **Adicione a biblioteca ao projeto:**  
+   - Botão direito no projeto > `Build Path > Configure Build Path`  
+   - Aba **Libraries > Add Library > User Library**  
+   - Escolha a biblioteca personalizada criada  
 
 ---
 
@@ -82,16 +84,20 @@ Salve o `.jar` em `C:\Program Files\Java\lib` ou em outro local conveniente.
 ### 1. Usando `db.properties`
 
 #### 📁 Arquivo: `properties/db.properties`
-	- Crie uma pasta na raiz do projeto, como nome de properties e dentro dela crie um arquivo chamado
-	- db.properties e dentro do arquivo 
-	
-	
-						dburl=jdbc:mysql://localhost:3306/meu_banco
-						user=root
-						password=123456
-						
-	- Lembrando que antes tem que ser criado uma base de dados chamado de exemplo : "meu_banco"
-					
+
+Crie uma pasta chamada `properties` na raiz do projeto e dentro dela um arquivo `db.properties` com o seguinte conteúdo:
+
+```
+
+dburl=jdbc\:mysql://localhost:3306/meu\_banco
+user=root
+password=123456
+
+````
+
+**Observação:** o banco de dados `meu_banco` deve estar criado no seu MySQL.
+
+---
 
 #### 📦 Classe: `LoadProperties.java`
 
@@ -105,7 +111,9 @@ public static Properties dbProperties() {
         throw new DbException(e.getMessage());
     }
 }
-```
+````
+
+---
 
 #### 📦 Classe: `DB.java`
 
@@ -227,13 +235,88 @@ public class app {
 
 ---
 
-## 🧠 O que você aprende neste projeto?
+## 📦 CRUD via RepositoryNivelUser
 
-* Como funciona o JDBC
-* Como ler arquivos `.properties` em Java
-* Como acessar variáveis de ambiente
-* Como usar exceções personalizadas
-* Como criar e gerenciar a conexão de forma segura
+Esta classe abstrai operações básicas no banco para a tabela `Tbl_Nivel`. Veja abaixo os métodos disponíveis, o que fazem e a saída esperada:
+
+| Método                                             | O que faz                                               | Retorno / Saída                                       |
+| -------------------------------------------------- | ------------------------------------------------------- | ----------------------------------------------------- |
+| `List<Nivel> queryAll()`                           | Retorna todos os registros da tabela `Tbl_Nivel`        | Lista de objetos `Nivel`                              |
+| `Integer insert(String novoName)`                  | Insere um novo registro com o nome informado            | ID do novo registro inserido (int)                    |
+| `Nivel updateNivelId(Integer id, String novoNome)` | Atualiza o registro com o ID informado para o novo nome | Objeto `Nivel` atualizado                             |
+| `Boolean daleteNivelId(Integer id)`                | Deleta o registro pelo ID informado                     | `true` se deletou com sucesso, `false` caso contrário |
+
+---
+
+### Exemplo de uso no `app.java`:
+
+```java
+public class app {
+    public static void main(String[] args) {
+        
+        RepositoryNivelUser nivelUser = new RepositoryNivelUser();
+        
+        // Listar todos os níveis (queryAll)
+        List<Nivel> niveis = nivelUser.queryAll();		
+        for(Nivel n : niveis) {
+            System.out.println("Código: " + n.getIdNivel());
+            System.out.println("Nome: " + n.getNomeNivel());
+            System.out.println();
+        }
+        
+        // Inserir um novo nível (insert)
+        int novoId = nivelUser.insert("Novo Nível");
+        System.out.println("ID inserido: " + novoId);
+        
+        // Atualizar um nível existente pelo ID (updateNivelId)
+        int idNivel = novoId; // por exemplo
+        String novoNome = "Nome Atualizado";
+        Nivel nivelAtualizado = nivelUser.updateNivelId(idNivel, novoNome);
+        System.out.println("Código: " + nivelAtualizado.getIdNivel());
+        System.out.println("Nome: " + nivelAtualizado.getNomeNivel());
+        
+        // Deletar um nível pelo ID (daleteNivelId)
+        Boolean sucesso = nivelUser.daleteNivelId(idNivel);
+        System.out.println("Deletado com sucesso? " + sucesso);
+    }
+}
+```
+
+---
+
+### Saídas Esperadas para cada operação:
+
+* **queryAll():**
+
+```
+Código: 1
+Nome: Básico
+
+Código: 2
+Nome: Intermediário
+
+... (lista completa)
+```
+
+* **insert("Novo Nível"):**
+
+```
+45  (retorna o id gerado para o novo registro)
+```
+
+* **updateNivelId(45, "Nome Atualizado"):**
+
+```
+Linhas Afetadas 1
+Código: 45
+Nome: Nome Atualizado
+```
+
+* **daleteNivelId(45):**
+
+```
+true
+```
 
 ---
 
@@ -254,4 +337,6 @@ Se tiver dúvidas ou quiser contribuir, sinta-se à vontade para abrir uma **iss
 **Desenvolvido com fins didáticos.**
 
 ```
+
+---
 

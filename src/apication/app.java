@@ -1,6 +1,9 @@
 package apication;
 
 
+import java.sql.Connection;
+
+import db.DB;
 import entities.Nivel;
 import repositpry.RepositoryNivelUser;
 
@@ -9,6 +12,13 @@ public class app {
 	public static void main(String[] args) {
 		
 		RepositoryNivelUser nivelUser = new RepositoryNivelUser();
+		//Connection conn = DB.getConectComProperties();
+		Connection conn = DB.getConectComPropertiesVariaveis();
+		if(conn != null) {
+			System.out.println("conectado");
+		}
+	
+		
 		
 		// Listar Buscar Nivel
 		
@@ -31,15 +41,15 @@ public class app {
 		
 		
 		
-		int idNivel = 62;
+	//	int idNivel = 62;
 		
 		
 		// Update Id
 		
-	String nomeNivel = "Lika";
-	Nivel n = (Nivel) nivelUser.updateNivelId(idNivel, nomeNivel);
-	System.out.println("Código: "+n.getIdNivel());
-	System.out.println("Nome: "+n.getNomeNivel());
+	//String nomeNivel = "Lika";
+	//Nivel n = (Nivel) nivelUser.updateNivelId(idNivel, nomeNivel);
+	//System.out.println("Código: "+n.getIdNivel());
+	//System.out.println("Nome: "+n.getNomeNivel());
 		
 	
 		//Boolean resposta = nivelUser.daleteNivelId(idNivel);

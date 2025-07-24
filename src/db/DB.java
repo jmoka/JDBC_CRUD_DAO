@@ -6,7 +6,8 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import db.Exceptions.DbException;
-import db.data.LoadCpanelProperties;
+import db.data.LoadProperties;
+import db.data.LoadVariaveisAmbiente;
 
 public class DB {
 
@@ -30,12 +31,10 @@ public class DB {
 							// caso contrario aber uma conexao nova
 			try {
 
-				//Properties props = LoadProperties.dbProperties(); // ler os dados do arquivo properties
-				Properties props = LoadCpanelProperties.dbProperties(); // ler os dados do arquivo properties
+				Properties props = LoadProperties.dbProperties(); // ler os dados do arquivo properties
 				String url = props.getProperty("dburl"); // pegar a url do arquivo properties
 				System.out.println("Conectando ao banco de dados: " + url);
 				conn = DriverManager.getConnection(url, props); // armazena a conexão na conn - Conection
-				 System.out.println("Banco de dados Conectado");
 
 			} catch (SQLException e) {
 				throw new DbException(e.getMessage());
@@ -47,8 +46,23 @@ public class DB {
 		return conn;
 
 	}
-	
-	
+	// Criar a Conexção como Banco Usando o Properties
+	public static Connection getConectComPropertiesVariaveis() {
+
+		if (conn == null) {
+			try {
+				Properties props = LoadVariaveisAmbiente.carregarPropertiesDoAmbiente();
+				String url = props.getProperty("dburl");
+
+				System.out.println("Conectando ao banco de dados: " + url);
+				conn = DriverManager.getConnection(url, props);
+			} catch (SQLException e) {
+				throw new DbException("Erro ao conectar: " + e.getMessage());
+			}
+		}
+
+		return conn;
+	}
 
 		
 }
