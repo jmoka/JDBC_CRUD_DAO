@@ -1,5 +1,6 @@
 package repositpry;
 
+import java.sql.Connection;
 import java.util.List;
 
 import entities.Nivel;
@@ -10,25 +11,30 @@ import repositpry.Niveis.UpdateNivel;
 import repositpry.interfaces.Crud;
 
 public class RepositoryNivelUser implements Crud {
+	
+	String table = "Tbl_Nivel";
+	String nomeNivel = "nomeNivel";
 
+	
 	@Override
-	public List<Nivel> queryAll() {
-		return QueryNivelUserAll.queryUserAll("Tbl_Nivel");
-	};
-
-	@Override
-	public Integer insert(String novoName) {
-		return InsertNivel.inserNivel(novoName, "Tbl_Nivel", "nomeNivel");
+	public Integer insert(String novoName, Connection conn) {
+		return InsertNivel.inserNivel(novoName, table, nomeNivel, conn);
 
 	}
 
 	@Override
-	public Nivel updateNivelId(Integer id, String novoNome) {
-		return UpdateNivel.id("Tbl_Nivel", novoNome, id);
+	public Boolean daleteNivelId(Integer id, Connection conn) {
+		return DeleteNivel.id(table, id, conn);
 	}
 
 	@Override
-	public Boolean daleteNivelId(Integer id) {
-		return DeleteNivel.id("Tbl_Nivel", id);
+	public Nivel updateNivelId(Integer id, String novoNome, Connection conn) {
+		return UpdateNivel.id(table, novoNome, id, conn);
+	}
+
+	@Override
+	public List<Nivel> queryAll(Connection conn) {
+		
+		return QueryNivelUserAll.queryUserAll(table, conn);
 	}
 }

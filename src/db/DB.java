@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import db.Exceptions.DbException;
+import db.data.LoadCpanelProperties;
 import db.data.LoadProperties;
 import db.data.LoadVariaveisAmbiente;
 
@@ -21,20 +22,17 @@ public class DB {
 	// 4) criar um metodo para fechar o banco
 
 	// variavel de conexão
-	public static Connection conn = null;
+	
 
 	// Criar a Conexção como Banco Usando o Properties
 	public static Connection getConectComProperties() {
-
-		if (conn == null) { // testa se a conexão esta ativa , se tiver pula o if e retorna a conexao (
-							// conn)
-							// caso contrario aber uma conexao nova
+	
 			try {
 
 				Properties props = LoadProperties.dbProperties(); // ler os dados do arquivo properties
 				String url = props.getProperty("dburl"); // pegar a url do arquivo properties
 				System.out.println("Conectando ao banco de dados: " + url);
-				conn = DriverManager.getConnection(url, props); // armazena a conexão na conn - Conection
+				return DriverManager.getConnection(url, props); // armazena a conexão na conn - Conection
 
 			} catch (SQLException e) {
 				throw new DbException(e.getMessage());
@@ -42,26 +40,41 @@ public class DB {
 
 		}
 
-		// caso a conexão não for nume retorna a conexão existente
-		return conn;
+		
 
-	}
+	
+	public static Connection getCPNELConectComProperties() {
+
+		
+			try {
+
+				Properties props = LoadCpanelProperties.dbProperties(); // ler os dados do arquivo properties
+				String url = props.getProperty("dburl"); // pegar a url do arquivo properties
+				System.out.println("Conectando ao banco de dados: " + url);
+				return DriverManager.getConnection(url, props); // armazena a conexão na conn - Conection
+
+			} catch (SQLException e) {
+				throw new DbException(e.getMessage());
+			}
+
+		}
+
 	// Criar a Conexção como Banco Usando o Properties
 	public static Connection getConectComPropertiesVariaveis() {
 
-		if (conn == null) {
+	
 			try {
 				Properties props = LoadVariaveisAmbiente.carregarPropertiesDoAmbiente();
 				String url = props.getProperty("dburl");
 
 				System.out.println("Conectando ao banco de dados: " + url);
-				conn = DriverManager.getConnection(url, props);
+				return DriverManager.getConnection(url, props);
 			} catch (SQLException e) {
 				throw new DbException("Erro ao conectar: " + e.getMessage());
 			}
-		}
 
-		return conn;
+
+		
 	}
 
 		

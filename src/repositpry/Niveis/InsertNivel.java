@@ -14,9 +14,9 @@ import entities.Nivel;
 
 public class InsertNivel {
 
-	public static Integer inserNivel(String novoName, String nameTabela, String nameColuna) {
+	public static Integer inserNivel(String novoName, String nameTabela, String nameColuna, Connection conn) {
 
-		Connection conn = null;
+		//Connection conn = null;
 		PreparedStatement ps = null;
 		Nivel novoNivel = new Nivel(novoName);
 		String tableName = nameTabela;
@@ -25,7 +25,8 @@ public class InsertNivel {
 
 		try {
 
-			conn = DB.getConectComProperties();
+			//conn = DB.getConectComProperties();
+			//conn = DB.getConectComPropertiesVariaveis();
 			ps = conn.prepareStatement(NivelSql.sqlNivelInsert(tableName, nameColunaNivel),
 					PreparedStatement.RETURN_GENERATED_KEYS);
 
@@ -48,12 +49,12 @@ public class InsertNivel {
 
 		} catch (SQLException e) {
 
-			// e.printStackTrace();
-			throw new DbException("Já exiete o mesmo nome no banco de dados");
+			e.getMessage();
+			throw new DbException("Já exiete o mesmo nome no banco de dados ou o Banco de dados não Exiete");
 
 		} finally {
-			ClosePrepareStatement.close(ps);
-			CloseConection.close(conn);
+			//ClosePrepareStatement.close(ps);
+			//CloseConection.close(conn);
 		}
 		 return (Integer) null;
 	}

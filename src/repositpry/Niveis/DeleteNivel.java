@@ -12,16 +12,16 @@ import db.closes.ClosePrepareStatement;
 
 public class DeleteNivel {
 
-	public static Boolean id (String nameTabela, Integer id) {
+	public static Boolean id (String nameTabela, Integer id, Connection conn) {
 
-		Connection conn = null;
+		//Connection conn = null;
 		PreparedStatement ps = null;
 		Boolean resultado = false;
 		
 
 		try {
 
-			conn = DB.getConectComProperties();
+			//conn = DB.getConectComProperties();
 			ps = conn.prepareStatement(NivelSql.sqlDeleteNivelId(nameTabela), 
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, id);
@@ -37,8 +37,8 @@ public class DeleteNivel {
 
 		} catch (SQLException e) {
 
-			// e.printStackTrace();
-			throw new DbException("Id Inexistente, não consta no banco de dados");
+			e.getMessage();
+			throw new DbException("Id Inexistente, não consta no banco de dados" );
 
 		} finally {
 			ClosePrepareStatement.close(ps);

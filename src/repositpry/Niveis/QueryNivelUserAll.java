@@ -17,14 +17,14 @@ import entities.Nivel;
 
 public class QueryNivelUserAll {
 
-	public static List<Nivel> queryUserAll(String nameTAble) {
-		Connection conn = null;
+	public static List<Nivel> queryUserAll(String nameTAble, Connection conn) {
+		//Connection conn = null;
 		Statement st = null;
 		ResultSet rs = null;
 		List<Nivel> niveis = new ArrayList<Nivel>();
 
 		try {
-			conn = DB.getConectComProperties();
+			//conn = DB.getConectComProperties();
 			st = conn.createStatement();
 			rs = st.executeQuery(NivelSql.sqlNivelAll(nameTAble));
 
@@ -33,6 +33,7 @@ public class QueryNivelUserAll {
 			}
 
 		} catch (SQLException e) {
+			e.getMessage();
 			throw new DbException("Verifique se o parâmetros de idNIvel e nomeNive estão corretos 32-QueryNivelUserAll");
 		} finally {
 

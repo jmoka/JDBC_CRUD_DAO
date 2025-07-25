@@ -13,15 +13,15 @@ import entities.Nivel;
 
 public class UpdateNivel {
 
-	public static Nivel id (String nameTabela, String novoNome, Integer id) {
+	public static Nivel id (String nameTabela, String novoNome, Integer id, Connection conn) {
 
-		Connection conn = null;
+		//Connection conn = null;
 		PreparedStatement ps = null;
 		Nivel nivel = new Nivel();
 
 		try {
 
-			conn = DB.getConectComProperties();
+			//conn = DB.getConectComProperties();
 			ps = conn.prepareStatement(NivelSql.sqlUpdateNivelId(nameTabela), 
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, novoNome);
@@ -36,7 +36,7 @@ public class UpdateNivel {
 
 		} catch (SQLException e) {
 
-			// e.printStackTrace();
+			System.out.println(e.getMessage());
 			throw new DbException("Id Inexistente, não consta no banco de dados");
 
 		} finally {
