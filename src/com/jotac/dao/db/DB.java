@@ -10,19 +10,8 @@ import com.jotac.dao.db.data.LoadProperties;
 import com.jotac.dao.db.data.LoadVariaveisAmbiente;
 import com.jotac.dao.db.exceptions.DbException;
 
+
 public class DB {
-
-	// 1) estaciar uma variável do tipo Conection
-	// 2) criar um metodo statico que retorna um Properties. Para ler o os dados do
-	// arquivo properties
-	// 3) criar um metodo statico que retorna um Conection (conn) e armazena a
-	// conexao na variavel conn
-	// usando o arquivo properties
-	// usando as variáveis de ambiante
-	// 4) criar um metodo para fechar o banco
-
-	// variavel de conexão
-	
 
 	// Criar a Conexção como Banco Usando o Properties
 	public static Connection getConectComProperties() {
