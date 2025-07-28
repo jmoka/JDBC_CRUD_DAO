@@ -1,4 +1,4 @@
-package com.jotac.dao.entities;
+package com.jotac.model.entities;
 
 import java.io.Serializable;
 import java.util.Objects;

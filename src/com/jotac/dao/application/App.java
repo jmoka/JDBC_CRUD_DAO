@@ -1,17 +1,17 @@
 package com.jotac.dao.application;
 
-import com.jotac.dao.dao.NivelUserDAO;
+import com.jotac.dao.JDBC.NivelJDaoJDBC;
 import com.jotac.dao.db.DB;
 
 public class App {
 
 	public static void main(String[] args) {
 
-		NivelUserDAO nivelUser = new NivelUserDAO();
+		NivelJDaoJDBC nivelUser = new NivelJDaoJDBC();
 
 		/* INSERIR */
 		 //nivelUser.insert("ZECAo", DB.getConectComPropertiesVariaveis() );
-		nivelUser.insert("LEPgRA", DB.getConectComProperties());
+		nivelUser.daoInsert("barbara", DB.getConectComProperties());
 		//nivelUser.insert("luizoo", DB.getCPNELConectComProperties());
 
 		/* DELETAR */
