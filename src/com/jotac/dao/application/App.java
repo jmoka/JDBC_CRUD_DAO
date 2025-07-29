@@ -1,44 +1,25 @@
 package com.jotac.dao.application;
 
-import com.jotac.dao.JDBC.NivelJDaoJDBC;
-import com.jotac.dao.db.DB;
+import com.jotac.dao.db.ConnectionManager;
+import com.jotac.model.dao.impl.NivelJDBC;
+
 
 public class App {
 
 	public static void main(String[] args) {
-
-		NivelJDaoJDBC nivelUser = new NivelJDaoJDBC();
-
-		/* INSERIR */
-		 //nivelUser.insert("ZECAo", DB.getConectComPropertiesVariaveis() );
-		nivelUser.daoInsert("barbara", DB.getConectComProperties());
-		//nivelUser.insert("luizoo", DB.getCPNELConectComProperties());
-
-		/* DELETAR */
-		// nivelUser.daleteNivelId(1, DB.getConectComPropertiesVariaveis() );
-		// nivelUser.daleteNivelId(2, DB.getConectComProperties());
-	    // nivelUser.daleteNivelId(69, DB.getCPNELConectComProperties());
 		
-		/* ATUALILZAR */
-		//nivelUser.updateNivelId(3, "hhh", DB.getConectComPropertiesVariaveis());
-		//nivelUser.updateNivelId(4, "lhhhhl", DB.getConectComProperties());		
-	    //nivelUser.updateNivelId(67,"ke", DB.getCPNELConectComProperties());
 		
-		/*CONSULTAR*/
-		//List<Nivel> list = nivelUser.queryAll(DB.getConectComPropertiesVariaveis());
-		//List<Nivel> list = nivelUser.queryAll(DB.getConectComProperties());
-		//List<Nivel> list = nivelUser.queryAll(DB.getCPNELConectComProperties());
 		
-		/*LISTAR*/
 		
-		/*
-		System.out.println("=============");
-		for(Nivel n : list) {		
-			System.out.println("Codigo : " + n.getIdNivel() );
-			System.out.println("Nome : " + n.getNomeNivel());
-			System.out.println("=============");
-		}
-		*/
-
+		NivelJDBC nivel = new NivelJDBC(ConnectionManager.getConnection(), "Tbl_Nivel", "nomeNivel");
+		
+		nivel.daoInsert("fdfdddddddllfggggdfd");
+		nivel.daoUpdateId(4, "legals");
+		nivel.daoQueryAll();
+		nivel.daoDeleteId(6);
+	   System.out.println(nivel.daoQueryAll());
+		
+	   ConnectionManager.close();
+		
 	}
 }

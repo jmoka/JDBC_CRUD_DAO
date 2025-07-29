@@ -1,4 +1,4 @@
-package com.jotac.dao.JDBC.Niveis;
+package com.jotac.model.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,12 +12,8 @@ import com.jotac.dao.db.exceptions.DbException;
 import com.jotac.model.entities.Nivel;
 
 import sql.NivelSql;
-import util.closeutils.CloseConnection;
-import util.closeutils.ClosePrepareStatement;
-import util.closeutils.CloseResultSet;
-import util.closeutils.CloseStatement;
 
-public class FactoryNIvel {
+public class ImplementNivel {
 	
 	
 	// INSERIR
@@ -58,10 +54,7 @@ public class FactoryNIvel {
 			e.getMessage();
 			throw new DbException("Já exiete o mesmo nome no banco de dados ou o Banco de dados não Exiete");
 
-		} finally {
-			//ClosePrepareStatement.close(ps);
-			//CloseConection.close(conn);
-		}
+		} 
 		 return (Integer) null;
 	}
 	
@@ -93,10 +86,7 @@ public class FactoryNIvel {
 			System.out.println(e.getMessage());
 			throw new DbException("Id Inexistente, não consta no banco de dados");
 
-		} finally {
-			ClosePrepareStatement.close(ps);
-			CloseConnection.close(conn);
-		}
+		} 
 		return nivel;
 		
 	} 
@@ -121,15 +111,7 @@ public class FactoryNIvel {
 			} catch (SQLException e) {
 				e.getMessage();
 				throw new DbException("Verifique se o parâmetros de idNIvel e nomeNive estão corretos 32-QueryNivelUserAll");
-			} finally {
-
-				CloseResultSet.close(rs);
-
-				CloseStatement.close(st);
-
-				CloseConnection.close(conn);
-
-			}
+			} 
 			return niveis;
 		}
 	
@@ -164,10 +146,7 @@ public class FactoryNIvel {
 			e.getMessage();
 			throw new DbException("Id Inexistente, não consta no banco de dados" );
 
-		} finally {
-			ClosePrepareStatement.close(ps);
-			CloseConnection.close(conn);
-		}
+		} 
 		return resultado;
 		
 	} 
