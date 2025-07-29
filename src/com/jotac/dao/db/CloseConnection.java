@@ -1,4 +1,4 @@
-package util.closeutils;
+package com.jotac.dao.db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,10 +6,11 @@ import java.sql.SQLException;
 import com.jotac.dao.db.exceptions.DbException;
 
 public class CloseConnection {
+	 private static Connection conn;
 
 	// metodo para fechart a conexão
 
-	public static void close(Connection conn) {
+	public static void close() {
 
 		// verifico se a conexão esta instanciada ou ativa
 		if (conn != null) {

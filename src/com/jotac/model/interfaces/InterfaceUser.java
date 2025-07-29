@@ -5,11 +5,8 @@ import java.util.List;
 
 import com.jotac.model.entities.User;
 
-public interface InterfaceUserDao {
+public interface InterfaceUser {
 	
-	
-	
-	//=====================================================================
 
 	List<User> daoQueryAll(Connection conn); // consulta todos os elementos
 

@@ -1,4 +1,4 @@
-package util.closeutils;
+package com.jotac.dao.db;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
